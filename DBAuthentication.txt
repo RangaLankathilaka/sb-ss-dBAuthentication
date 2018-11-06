@@ -1,0 +1,24 @@
+create table users(
+      username varchar(100) not null primary key,
+      password varchar(100) not null,
+      enabled boolean not null);
+
+
+
+create table authorities (
+      username varchar(100) not null,
+      authority varchar(100) not null,
+      constraint fk_authorities_users foreign key(username) references users(username));
+
+ create unique index auth_uniq_indx on authorities (username,authority);
+
+//insert to user username and encripted password
+insert into users(username,password,enabled) values('devuser','$2a$10$B9DCIwNTB.LipohYNJLdxujVXImXRhP/kx.HyNDIE1.PHhcptoD0G',true);
+
+insert into users(username,password,enabled) values('adminuser','$2a$10$W65OR/l/cy7/AaY3ZdBqF.Ko/v7cWN987qnOkAOVPskQXFOCq/sX6',true);
+
+//insert to authorities username and role
+insert into authorities (username,authority) values('devuser','ROLE_USER');
+
+insert into authorities (username,authority) values('adminuser','ROLE_USER');
+insert into authorities (username,authority) values('adminuser','ROLE_ADMIN');
